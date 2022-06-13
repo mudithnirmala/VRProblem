@@ -219,7 +219,7 @@ class Population:
         #print('ABG Weakness: ' + str(avg_fitness)) 
         #print(self.get_best()[1])
         #print(self.get_best()[0])
-        print("Dis Time :",getTotalDisTime(self.get_best()[0])) 
+        print("Dis Travel_Time TotTime :",getTotalDisTime(self.get_best()[0])) 
         print("Number of Vehicles : ",int(getTotalDisTime(self.get_best()[0])[-1]/WORK_SECS) +1 )
   
     def get_avg(self):
@@ -250,16 +250,33 @@ def getInput():
     #print(disMat)
     #print(timeMat)
 
+def plot(xx,yy,fname):
+    plt.plot(xx,yy)
+    plt.savefig(fname)
+
+
 if __name__ == '__main__':
     random.seed(666)
     p_size = 1000 #f  larger the population higher chance of finding local min/max, but program becomes slow
 
     getInput()
 
+    xx = []
+    yy = []
+    fname = 'graph.png'
+
+    if len(sys.argv) > 1:
+        plot(xx,yy,fname)
+
     population = Population()
     population.init_population(N,p_size)
 
+
     for iteration in range(1000): # iteration = echo
+        xx.append(iteration)
+        yy.append(population.get_avg())
+        plot(xx,yy,fname)
+
         population = population.next_generation(p_size)
         if(iteration %20==0):  
             population.print_stats()
