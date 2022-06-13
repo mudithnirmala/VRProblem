@@ -159,7 +159,7 @@ class Population:
         self.fitness = []
         prob_den =0
         for c in self.creatures:
-            f = Population.get_fitness(c,self.n) # total journey time
+            f = Population.get_fitness(c,self.n) # total journey distance
             min_f = min(f,min_f)
             self.fitness.append(f)
             prob = 1/max(10,f+EPS-min_f+200) #pow(1.5,-f) # more conflicts-> less probability
@@ -236,8 +236,8 @@ def getInput():
         N = int(file.readline().strip())
         #SERVICE_TIME,LOADING_TIME, KG_CAPACITY,CHRG_SPEED,RANGE = map(int,file.readline().strip().split())
 
-        W = list(map(int,file.readline().strip().split()))
-        if(len(W)<=N): W=[0]*(N-len(W)+2)+W # add zero at the beginning
+        W = list(map(float,file.readline().strip().split()))
+        W=[0]+W # add zero at the beginning
 
         for row in range(N):
             disMat.append(list(map(int,file.readline().strip().split())))
